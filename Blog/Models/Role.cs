@@ -2,7 +2,7 @@
 
 namespace Blog.API.Models
 {
-    public class Category
+    public class Role
     {
         public int Id { get; private set; }
 
@@ -12,7 +12,7 @@ namespace Blog.API.Models
 
 
         [JsonConstructor]
-        public Category(string name, string slug)
+        public Role(string name, string slug)
         {
             Name = name;
             Slug = slug;

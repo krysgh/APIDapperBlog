@@ -1,12 +1,13 @@
 ﻿using Blog.API.Data;
 using Blog.API.Models;
+using Blog.API.Models.DTOs;
+using Blog.API.Repositories.Interfaces;
 using Dapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 
 namespace Blog.API.Repositories
 {
-    public class CategoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly SqlConnection _connection;
 
@@ -15,26 +16,34 @@ namespace Blog.API.Repositories
             _connection = connection.GetConnection();
         }
 
-        public async Task<List<Category>> GetAllCategoriesAsync()
+        public async Task<List<CategoryResponseDTO>> GetAllCategoriesAsync()
         {
-            var sql = "SELECT * FROM Category";
-            var categories = new List<Category>();
+            var sql = "SELECT Name,Slug FROM Category";
+            return (await _connection.QueryAsync<CategoryResponseDTO>(sql)).ToList();       
+        }
 
-            using (_connection)
-            {
-                await _connection.OpenAsync();
-                var reader = await _connection.ExecuteReaderAsync(sql);
+        public async Task CreateCategoryAsync(Category category)
+        {
+            var sql = "INSERT INTO Category (Name,Slug) VALUES (@Name,@Slug)";
+            await _connection.ExecuteAsync(sql, new { category.Name, category.Slug });
+        }
 
-                while (reader.Read())
-                {
-                    var category = new Category(
-                        reader["Name"].ToString(),
-                        reader["Slug"].ToString());
+        public async Task<CategoryResponseDTO> GetCategoriaByIDAsync(int id)
+        {
+            var sql = "SELECT Name,Slug FROM Category WHERE Id = @CategoryID";
+            return (await _connection.QueryFirstOrDefaultAsync<CategoryResponseDTO>(sql, new { CategoryID = id }));
+        }
 
-                    categories.Add(category);
-                }
-                return categories;
-            }
+        public async Task UpdateCategoryByIDAsync(Category category, int id)
+        {
+            var sql = "UPDATE Category SET Name = @Name,Slug = @Slug WHERE Id = @CategoryID";
+            await _connection.ExecuteAsync(sql, new { category.Name, category.Slug, CategoryID = id });
+        }
+
+        public async Task DeleteCategoryByIDAsync(int id)
+        {
+            var sql = "DELETE FROM Category WHERE Id = @CategoryID";
+            await _connection.ExecuteAsync(sql, new { CategoryID = id });
         }
 
     }

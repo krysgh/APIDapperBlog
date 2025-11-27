@@ -1,4 +1,5 @@
-﻿using Blog.API.Models.DTOs;
+﻿using Blog.API.Controllers.Interfaces;
+using Blog.API.Models.DTOs;
 using Blog.API.Services;
 using Blog.API.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -8,7 +9,7 @@ namespace Blog.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class TagController : ControllerBase
+    public class TagController : ControllerBase, ITagController
     {
 
         private ITagService _tagService;

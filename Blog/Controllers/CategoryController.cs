@@ -1,4 +1,5 @@
-﻿using Blog.API.Models.DTOs;
+﻿using Blog.API.Controllers.Interfaces;
+using Blog.API.Models.DTOs;
 using Blog.API.Services;
 using Blog.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,7 @@ namespace Blog.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class CategoryController : ControllerBase, ICategoryController
     {
         private ICategoryService _categoryService;
 

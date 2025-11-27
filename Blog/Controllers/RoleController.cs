@@ -1,4 +1,5 @@
-﻿using Blog.API.Models;
+﻿using Blog.API.Controllers.Interfaces;
+using Blog.API.Models;
 using Blog.API.Models.DTOs;
 using Blog.API.Services;
 using Blog.API.Services.Interfaces;
@@ -10,7 +11,7 @@ namespace Blog.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class RoleController : ControllerBase
+    public class RoleController : ControllerBase, IRoleController
     {
 
         private IRoleService _roleService;

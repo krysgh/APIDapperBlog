@@ -40,14 +40,14 @@ namespace Blog.API.Controllers
             return Created();
         }
 
-        [HttpGet("GetByID")]
+        [HttpGet("GetByID/{id}")]
         public async Task<ActionResult<CategoryResponseDTO>> GetCategoriaByIDAsync(int id)
         {
             var category = await _categoryService.GetCategoriaByIDAsync(id);
             return Ok(category);
         }
 
-        [HttpPut("UpdateByID")]
+        [HttpPut("UpdateByID/{id}")]
         public async Task<ActionResult> UpdateCategoryByIDAsync(CategoryRequestDTO category, int id)
         {
             var categoryFound = await _categoryService.GetCategoriaByIDAsync(id);
@@ -61,7 +61,7 @@ namespace Blog.API.Controllers
             return Ok();
         }
 
-        [HttpDelete("DeleteByID")]
+        [HttpDelete("DeleteByID/{id}")]
         public async Task<ActionResult> DeleteCategoryByIDAsync(int id)
         {
             var categoryFound = await _categoryService.GetCategoriaByIDAsync(id);

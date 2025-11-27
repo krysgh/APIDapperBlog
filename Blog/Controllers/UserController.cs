@@ -38,13 +38,13 @@ namespace Blog.API.Controllers
             return Created();
         }
 
-        [HttpGet("GetByID")]
+        [HttpGet("GetByID/{id}")]
         public async Task<ActionResult<UserResponseDTO>> GetUserByIDAsync(int id)
         {
             return Ok(await _userService.GetUserByIDAsync(id));
         }
 
-        [HttpPut("UpdateByID")]
+        [HttpPut("UpdateByID/{id}")]
         public async Task<ActionResult> UpdateUserByIDAsync(UserRequestDTO user, int id)
         {
             var userFound = await _userService.GetUserByIDAsync(id);
@@ -58,7 +58,7 @@ namespace Blog.API.Controllers
         }
 
 
-        [HttpDelete("DeleteByID")]
+        [HttpDelete("DeleteByID/{id}")]
         public async Task<ActionResult> DeleteUserByIDAsync(int id)
         {
             var userFound = await _userService.GetUserByIDAsync(id);

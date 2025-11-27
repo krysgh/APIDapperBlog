@@ -3,6 +3,7 @@ using Blog.API.Models.DTOs;
 using Blog.API.Repositories;
 using Blog.API.Repositories.Interfaces;
 using Blog.API.Services.Interfaces;
+using System.Data.Common;
 
 namespace Blog.API.Services
 {
@@ -42,5 +43,56 @@ namespace Blog.API.Services
         {
             await _userRepository.DeleteUserByIDAsync(id);
         }
+
+        public async Task<List<UserRolesResponseDTO>> GetAllUsersRoles()
+        {
+            var users = await _userRepository.GetAllUserRoles();
+
+            var dtos = users.Select(user => new UserRolesResponseDTO
+            {
+                Name = user.Name,
+                Email = user.Email,
+                PasswordHash = user.PasswordHash,
+                Bio = user.Bio,
+                Image = user.Image,
+                Slug = user.Slug,
+
+                Roles = user.Roles.Select(role => new RoleResponseDTO
+                {
+                    Name = role.Name,
+                    Slug = role.Slug
+                }).ToList()
+            }).ToList();
+
+            return dtos;
+        }
+
+        public async Task<UserRolesResponseDTO> GetUserRolesByID(int id)
+        {
+            var user = await _userRepository.GetUserRolesByID(id);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            var dto = new UserRolesResponseDTO
+            {
+                Name = user.Name,
+                Email = user.Email,
+                PasswordHash = user.PasswordHash,
+                Bio = user.Bio,
+                Image = user.Image,
+                Slug = user.Slug,
+
+                Roles = user.Roles?.Select(role => new RoleResponseDTO
+                {
+                    Name = role.Name,
+                    Slug = role.Slug
+                }).ToList()
+            };
+            return dto;
+        }
+
     }
 }

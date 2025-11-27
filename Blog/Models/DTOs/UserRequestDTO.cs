@@ -2,14 +2,14 @@
 {
     public class UserRequestDTO
     {
-        public string Name { get; set; }
+        public string Name { get; init; } = string.Empty;
 
-        public string Email { get; set; }
+        public string Email { get; init; } = string.Empty;
 
-        public string PasswordHash { get; set; }
+        public string PasswordHash { get; init; } = string.Empty;
 
-        public string Bio { get; set; }
+        public string Bio { get; init; } = string.Empty;
 
-        public string Image { get; set; }
+        public string Image { get; init; } = string.Empty;
     }
 }

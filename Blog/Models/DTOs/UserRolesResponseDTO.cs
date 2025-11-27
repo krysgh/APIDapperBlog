@@ -1,6 +1,6 @@
 ﻿namespace Blog.API.Models.DTOs
 {
-    public class UserResponseDTO
+    public class UserRolesResponseDTO
     {
         public string Name { get; init; } = string.Empty;
 
@@ -13,5 +13,7 @@
         public string Image { get; init; } = string.Empty;
 
         public string Slug { get; init; } = string.Empty;
+
+        public List<RoleResponseDTO> Roles { get; init; }
     }
 }

@@ -14,5 +14,9 @@ namespace Blog.API.Services.Interfaces
         Task UpdateUserByIDAsync(UserRequestDTO user, int id);
 
         Task DeleteUserByIDAsync(int id);
+
+        Task<List<UserRolesResponseDTO>> GetAllUsersRoles();
+
+        Task<UserRolesResponseDTO> GetUserRolesByID(int id);
     }
 }

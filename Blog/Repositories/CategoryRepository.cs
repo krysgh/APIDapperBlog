@@ -19,7 +19,7 @@ namespace Blog.API.Repositories
         public async Task<List<CategoryResponseDTO>> GetAllCategoriesAsync()
         {
             var sql = "SELECT Name,Slug FROM Category";
-            return (await _connection.QueryAsync<CategoryResponseDTO>(sql)).ToList();       
+            return (await _connection.QueryAsync<CategoryResponseDTO>(sql)).ToList();
         }
 
         public async Task CreateCategoryAsync(Category category)

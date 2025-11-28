@@ -43,6 +43,8 @@ namespace Blog.API.Models
             Slug = slug;
         }
 
+        public User() { }
+
         public void SetRoles(Role role)
         {
             Roles.Add(role);

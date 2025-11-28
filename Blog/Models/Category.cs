@@ -17,5 +17,7 @@ namespace Blog.API.Models
             Name = name;
             Slug = slug;
         }
+
+        public Category() { }
     }
 }
